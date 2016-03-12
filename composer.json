@@ -1,5 +1,5 @@
 {
-    "name": "ginnerpeace/Hayate",
+    "name": "ginnerpeace/hayate",
     "description": "* Critchance +25%\n* Speed bonus +18%\n* Hit rating 100%",
     "license": "MIT",
     "authors": [
@@ -8,7 +8,6 @@
             "email": "ginnerpeace@live.com"
         }
     ],
-    "minimum-stability": "stable",
     "require": {
         "php": ">=5.4.0"
     },
