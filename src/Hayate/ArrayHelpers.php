@@ -15,13 +15,12 @@ class ArrayHelpers {
 	 * @param  array $arrData
 	 * @return array
 	 */
-	public static function unique( $arrData = [] )
-	{
+	public static function unique($arrData = []) {
 		/**
 		 * 去null后两次翻转
 		 * merge用来修复数组index
 		 */
-		return array_merge( array_flip( array_flip( array_filter( $arrData ) ) ) );
+		return array_merge(array_flip(array_flip(array_filter($arrData))));
 	}
 
 	/**
@@ -33,9 +32,8 @@ class ArrayHelpers {
 	 * @param  boolean $asc
 	 * @return array
 	 */
-	public static function quick_sort($array = [], $key = '', $asc = FALSE)
-	{
-		return $asc ? array_reverse( self::_quick_sort_desc( $array, $key ) ) : self::_quick_sort_desc( $array, $key );
+	public static function quick_sort($array = [], $key = '', $asc = FALSE) {
+		return $asc ? array_reverse(self::_quick_sort_desc($array, $key)) : self::_quick_sort_desc($array, $key);
 	}
 
 	/**
@@ -45,10 +43,8 @@ class ArrayHelpers {
 	 * @param  string $key
 	 * @return array
 	 */
-	private static function _quick_sort_desc( $array = [], $key = '' )
-	{
-		if ( empty( $array ) || count( $array ) <= 1 )
-		{
+	private static function _quick_sort_desc($array = [], $key = '') {
+		if (empty($array) || count($array) <= 1) {
 			return $array;
 		}
 
@@ -100,13 +96,94 @@ class ArrayHelpers {
 	 * @param  array $data
 	 * @return array
 	 */
-	public static function array_map_recursive( $filter, $data )
-	{
-		$result = array();
-		foreach ( $data as $key => $val ) {
-			$result[$key] = is_array($val) ? self::array_map_recursive($filter, $val) : $filter($val);
+	public static function array_map_recursive($filter, $data) {
+		$return = [];
+		foreach ($data as $key => $val) {
+			$return[$key] = is_array($val) ? self::array_map_recursive($filter, $val) : $filter($val);
 		}
-		return $result;
+		return $return;
+	}
+
+	/**
+	 * 随机取数组中一个值
+	 * @author gjy
+	 *
+	 * @param  array $array
+	 * @return array | mixed
+	 */
+	public static function random_value($array) {
+		return is_array($array) ? $array[array_rand($array)] : $array;
+	}
+
+	/**
+	 * fetch some item
+	 * @author gjy
+	 *
+	 * @param  mixed $items
+	 * @param  array $array
+	 * @param  mixed $default
+	 * @return array
+	 */
+	public static function fetch_items(array $array, $items, $default = NULL) {
+		if (is_numeric($items) || is_string($items)) {
+			return isset($array[$items]) ? $array[$items] : $default;
+		}
+
+		if (!is_array($items)) {
+			return $default;
+		}
+
+		$return = [];
+		foreach ($items as $item) {
+			$return[$item] = isset($array[$item]) ? $array[$item] : $default;
+		}
+
+		return $return;
+	}
+
+	/**
+	 * 二维数组里fetch, 保留键名
+	 * @author gjy
+	 *
+	 * @param  array $array
+	 * @param  array $items
+	 * @param  mixed $default
+	 * @return array
+	 */
+	public static function fetch_more(array $array, $items, $default = NULL) {
+		$return = [];
+
+		foreach ($array as $key => $val) {
+			$return[$key] = [];
+			foreach ($items as $v) {
+				$return[$key][$v] = isset($val[$v]) ? $val[$v] : $default;
+			}
+		}
+
+		return $return;
+	}
+
+	/**
+	 * 可深度fetch, 结果是一维数组 (laravel里偷来的2333...
+	 *
+	 * @param  array $array
+	 * @param  string $key
+	 * @return array
+	 */
+	public static function fetch(array $array, $key) {
+		foreach (explode('.', $key) as $segment) {
+			$results = [];
+
+			foreach ($array as $value) {
+				if (array_key_exists($segment, $value = (array) $value)) {
+					$results[] = $value[$segment];
+				}
+			}
+
+			$array = array_values($results);
+		}
+
+		return array_values($results);
 	}
 
 }
