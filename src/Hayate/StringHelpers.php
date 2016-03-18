@@ -55,16 +55,13 @@ class StringHelpers {
 				$c = (($c & 0xF) << 12) | ((ord($s2) & 0x3F) << 6) | (ord($s3) & 0x3F);
 				if ($c == 12288) {
 					$ret .= ' ';
-				}
-				elseif ($c > 65280 && $c < 65375 && $c != 65374) {
+				} elseif ($c > 65280 && $c < 65375 && $c != 65374) {
 					$c -= 65248;
 					$ret .= chr($c);
-				}
-				else {
+				} else {
 					$ret .= $s1 . $s2 . $s3;
 				}
-			}
-			else {
+			} else {
 				$ret .= $str[$i];
 			}
 		}
@@ -84,9 +81,10 @@ class StringHelpers {
 	 * @param  string $type
 	 * @return string
 	 */
-	public static function strip_html_tags( $str = '', $type = 'script' )
-	{
-		if ( empty( $str ) ) return '';
+	public static function strip_html_tags($str = '', $type = 'script') {
+		if (empty($str)) {
+			return '';
+		}
 
 		$stripType = array(
 			'all' => '@<[\/\!]*?[^<>]*?>@si', // 所有标签, 等同于 strip_tags()
@@ -97,9 +95,56 @@ class StringHelpers {
 			'body' => '@<body[^>]*?>.*?</body>@si', // 去除body标签
 		);
 
-		if ( empty( $stripType[$type] ) ) return $str;
+		if (empty($stripType[$type])) {
+			return $str;
+		}
 
 		return preg_replace($stripType[$type], '', $str);
 	}
 
+	/**
+	 * 生成随机字符串
+	 * @author CodeIgniter developer
+	 * @revisor gjy
+	 *
+	 * @param  string $type
+	 * @param  integer $len
+	 * @return string
+	 */
+	public static function random_string($type = 'distinct_num', $len = 8) {
+		switch ($type) {
+		case 'basic':
+			return mt_rand();
+		case 'alnum':
+		case 'numeric':
+		case 'nozero':
+		case 'alpha':
+		case 'distinct':
+			switch ($type) {
+			case 'alpha':
+				$pool = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+				break;
+			case 'alnum':
+				$pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+				break;
+			case 'numeric':
+				$pool = '0123456789';
+				break;
+			case 'nozero':
+				$pool = '123456789';
+				break;
+			case 'distinct':
+				$pool = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+				break;
+			case 'distinct_num':
+				$pool = '3456789abcdefghijkmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXY';
+				break;
+			}
+			return substr(str_shuffle(str_repeat($pool, ceil($len / strlen($pool)))), 0, $len);
+		case 'md5':
+			return md5(uniqid(mt_rand()));
+		case 'sha1':
+			return sha1(uniqid(mt_rand(), TRUE));
+		}
+	}
 }
