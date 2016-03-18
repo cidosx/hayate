@@ -15,7 +15,7 @@ class ArrayHelpers {
 	 * @param  array $arrData
 	 * @return array
 	 */
-	public static function arr_unique( $arrData = [] )
+	public static function unique( $arrData = [] )
 	{
 		/**
 		 * 去null后两次翻转
@@ -33,7 +33,7 @@ class ArrayHelpers {
 	 * @param  boolean $asc
 	 * @return array
 	 */
-	public static function arr_quick_sort($array = [], $key = '', $asc = FALSE)
+	public static function quick_sort($array = [], $key = '', $asc = FALSE)
 	{
 		return $asc ? array_reverse( self::_quick_sort_desc( $array, $key ) ) : self::_quick_sort_desc( $array, $key );
 	}
