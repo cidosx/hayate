@@ -31,22 +31,26 @@ class NumberHelpers {
 		foreach ($arr1 as &$v) {
 			$v = strrev($v);
 		}
-
 		unset($v);
 
 		foreach ($arr2 as &$v) {
 			$v = strrev($v);
 		}
-
 		unset($v);
 
-		array_walk($arr2, function ($v, $k) use (&$arr1) {
-			$re = $arr1[$k];
+		$len = count($arr1);
+		array_walk($arr2, function ($v, $k) use (&$arr1, $len) {
 			if ($arr1[$k] < $v) {
-				$arr1[$k + 1] -= 1;
-				$re = 1 . $arr1[$k];
+				for ($i = $k + 1; $i < $len; ++$i) {
+					if ($arr1[$i] < 1) {
+						$arr1[$i] = 999999999;
+						continue;
+					}
+					$arr1[$i] -= 1;
+					break;
+				}
 			}
-			$arr1[$k] = $re - $v;
+			$arr1[$k] = 1 . $arr1[$k] - $v;
 		});
 
 		$hehe = '';
