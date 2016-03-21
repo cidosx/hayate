@@ -134,10 +134,10 @@ class StringHelpers {
 				$pool = '123456789';
 				break;
 			case 'distinct':
-				$pool = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+				$pool = 'abcdefghijkmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ';
 				break;
 			case 'distinct_num':
-				$pool = '3456789abcdefghijkmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXY';
+				$pool = '3456789abcdefghijkmnpqrstuvwxyABCDEFGHIJKLMNPQRSTUVWXY';
 				break;
 			}
 			return substr(str_shuffle(str_repeat($pool, ceil($len / strlen($pool)))), 0, $len);
