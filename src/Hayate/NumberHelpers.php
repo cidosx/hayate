@@ -49,8 +49,10 @@ class NumberHelpers {
 					$arr1[$i] -= 1;
 					break;
 				}
+				$arr1[$k] = 1 . $arr1[$k] - $v;
+			} else {
+				$arr1[$k] = $arr1[$k] - $v;
 			}
-			$arr1[$k] = 1 . $arr1[$k] - $v;
 		});
 
 		$hehe = '';
@@ -84,13 +86,11 @@ class NumberHelpers {
 		foreach ($arr1 as &$v) {
 			$v = strrev($v);
 		}
-
 		unset($v);
 
 		foreach ($arr2 as &$v) {
 			$v = strrev($v);
 		}
-
 		unset($v);
 
 		array_walk($arr2, function ($v, $k) use (&$arr1) {
@@ -110,12 +110,7 @@ class NumberHelpers {
 	}
 
 	private static function _check_long_number($num1, $num2) {
-		return is_numeric($num1)
-		&& is_numeric($num2)
-		&& $num1 >= 0
-		&& $num2 >= 0
-		&& strpos($num1, '.') === FALSE && strpos($num1, '.') === FALSE
-			&& ($num1 > 999999999 || $num2 > 999999999);
+		return is_numeric($num1) && is_numeric($num2) && $num1 >= 0 && $num2 >= 0 && strpos($num1, '.') === FALSE && strpos($num1, '.') === FALSE && ($num1 > 999999999 || $num2 > 999999999);
 	}
 
 	/**
