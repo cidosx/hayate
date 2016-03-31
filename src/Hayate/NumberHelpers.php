@@ -39,7 +39,7 @@ class NumberHelpers {
 		unset($v);
 
 		$len = count($arr1);
-		array_walk($arr2, function ($v, $k) use (&$arr1, $len) {
+		foreach ($arr2 as $k => $v) {
 			if ($arr1[$k] < $v) {
 				for ($i = $k + 1; $i < $len; ++$i) {
 					if ($arr1[$i] < 1) {
@@ -53,7 +53,7 @@ class NumberHelpers {
 			} else {
 				$arr1[$k] = $arr1[$k] - $v;
 			}
-		});
+		}
 
 		$hehe = '';
 		foreach ($arr1 as $v) {
@@ -93,13 +93,13 @@ class NumberHelpers {
 		}
 		unset($v);
 
-		array_walk($arr2, function ($v, $k) use (&$arr1) {
+		foreach ($arr2 as $k => $v) {
 			$arr1[$k] = $arr1[$k] + $v;
 			if ($arr1[$k] > 999999999) {
 				$arr1[$k] -= 1000000000;
 				$arr1[$k + 1] += 1;
 			}
-		});
+		}
 
 		$hehe = '';
 		foreach ($arr1 as $v) {
