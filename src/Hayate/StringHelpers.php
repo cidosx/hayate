@@ -113,10 +113,9 @@ class StringHelpers {
 	 */
 	public static function random_string($type = 'distinct_num', $len = 8) {
 		switch ($type) {
-		case 'basic':
-			return mt_rand();
-		case 'alnum':
 		case 'numeric':
+			return str_pad(mt_rand(0, str_repeat(9, $len)), $len, '0', STR_PAD_LEFT);
+		case 'alnum':
 		case 'nozero':
 		case 'alpha':
 		case 'distinct':
@@ -126,9 +125,6 @@ class StringHelpers {
 				break;
 			case 'alnum':
 				$pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-				break;
-			case 'numeric':
-				$pool = '0123456789';
 				break;
 			case 'nozero':
 				$pool = '123456789';
