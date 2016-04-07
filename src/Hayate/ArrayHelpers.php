@@ -15,7 +15,7 @@ class ArrayHelpers {
 	 * @param  array $arrData
 	 * @return array
 	 */
-	public static function unique($arrData = array()) {
+	public static function unique(array $arrData = array()) {
 		/**
 		 * 去null后两次翻转
 		 * merge用来修复数组index
@@ -32,7 +32,7 @@ class ArrayHelpers {
 	 * @param  boolean $asc
 	 * @return array
 	 */
-	public static function quick_sort($array = array(), $key = '', $asc = FALSE) {
+	public static function quick_sort(array $array = array(), $key = '', $asc = FALSE) {
 		return $asc ? array_reverse(self::_quick_sort_desc($array, $key)) : self::_quick_sort_desc($array, $key);
 	}
 
@@ -43,7 +43,7 @@ class ArrayHelpers {
 	 * @param  string $key
 	 * @return array
 	 */
-	private static function _quick_sort_desc($array = array(), $key = '') {
+	private static function _quick_sort_desc(array $array = array(), $key = '') {
 		if (empty($array) || count($array) <= 1) {
 			return $array;
 		}
@@ -111,7 +111,7 @@ class ArrayHelpers {
 	 * @param  array $array
 	 * @return array | mixed
 	 */
-	public static function random_value($array) {
+	public static function random_value(array $array) {
 		return is_array($array) ? $array[array_rand($array)] : $array;
 	}
 
@@ -187,6 +187,32 @@ class ArrayHelpers {
 	}
 
 	/**
+	 * 使用传入的key当作外层array的index
+	 * @author gjy
+	 *
+	 * @param  array $array
+	 * @param  string | integer $key
+	 * @return array
+	 */
+	public static function change_index(array $array, $key) {
+		$check = reset($array);
+		if (!isset($check[$key])) {
+			return array();
+		}
+
+		$results = array();
+		foreach ($array as $v) {
+			if (isset($results[$v[$key]])) {
+				continue;
+			}
+
+			$results[$v[$key]] = $v;
+		}
+
+		return $results;
+	}
+
+	/**
 	 * fetch array return map
 	 * @author gjy
 	 *
@@ -194,7 +220,7 @@ class ArrayHelpers {
 	 * @param  string $keyValue # ex: item_id.title
 	 * @return array
 	 */
-	public static function fetch_map($array, $keyValue) {
+	public static function fetch_map(array $array, $keyValue) {
 		$check = reset($array);
 		$kv = explode('.', $keyValue);
 		if (count($kv) !== 2 || !isset($check[$kv[0]], $check[$kv[1]])) {
