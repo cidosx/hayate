@@ -194,21 +194,22 @@ class ArrayHelpers {
 	 * @param  string $keyValue # ex: item_id.title
 	 * @return array
 	 */
-	public static function fetch_map( $array, $keyValue )
-	{
-		$check = reset( $array );
-		$kv = explode( '.', $keyValue );
-		if ( count( $kv ) !== 2
-			|| ! isset( $kv[0], $check )
-			|| ! isset( $kv[1], $check ) ) return array();
+	public static function fetch_map($array, $keyValue) {
+		$check = reset($array);
+		$kv = explode('.', $keyValue);
+		if (count($kv) !== 2 || !isset($check[$kv[0]], $check[$kv[1]])) {
+			return array();
+		}
 
 		$indexKey = $kv[0];
 		$valueKey = $kv[1];
 
 		$results = array();
-		foreach ( $array as $v )
-		{
-			if ( isset( $results[$v[$indexKey]] ) ) continue;
+		foreach ($array as $v) {
+			if (isset($results[$v[$indexKey]])) {
+				continue;
+			}
+
 			$results[$v[$indexKey]] = $v[$valueKey];
 		}
 
