@@ -15,7 +15,7 @@ class ArrayHelpers {
 	 * @param  array $arrData
 	 * @return array
 	 */
-	public static function unique($arrData = []) {
+	public static function unique($arrData = array()) {
 		/**
 		 * 去null后两次翻转
 		 * merge用来修复数组index
@@ -32,7 +32,7 @@ class ArrayHelpers {
 	 * @param  boolean $asc
 	 * @return array
 	 */
-	public static function quick_sort($array = [], $key = '', $asc = FALSE) {
+	public static function quick_sort($array = array(), $key = '', $asc = FALSE) {
 		return $asc ? array_reverse(self::_quick_sort_desc($array, $key)) : self::_quick_sort_desc($array, $key);
 	}
 
@@ -43,7 +43,7 @@ class ArrayHelpers {
 	 * @param  string $key
 	 * @return array
 	 */
-	private static function _quick_sort_desc($array = [], $key = '') {
+	private static function _quick_sort_desc($array = array(), $key = '') {
 		if (empty($array) || count($array) <= 1) {
 			return $array;
 		}
@@ -97,7 +97,7 @@ class ArrayHelpers {
 	 * @return array
 	 */
 	public static function array_map_recursive($filter, $data) {
-		$return = [];
+		$return = array();
 		foreach ($data as $key => $val) {
 			$return[$key] = is_array($val) ? self::array_map_recursive($filter, $val) : $filter($val);
 		}
@@ -133,7 +133,7 @@ class ArrayHelpers {
 			return $default;
 		}
 
-		$return = [];
+		$return = array();
 		foreach ($items as $item) {
 			$return[$item] = isset($array[$item]) ? $array[$item] : $default;
 		}
@@ -151,10 +151,10 @@ class ArrayHelpers {
 	 * @return array
 	 */
 	public static function fetch_more(array $array, $items, $default = NULL) {
-		$return = [];
+		$return = array();
 
 		foreach ($array as $key => $val) {
-			$return[$key] = [];
+			$return[$key] = array();
 			foreach ($items as $v) {
 				$return[$key][$v] = isset($val[$v]) ? $val[$v] : $default;
 			}
@@ -172,7 +172,7 @@ class ArrayHelpers {
 	 */
 	public static function fetch(array $array, $key) {
 		foreach (explode('.', $key) as $segment) {
-			$results = [];
+			$results = array();
 
 			foreach ($array as $value) {
 				if (array_key_exists($segment, $value = (array) $value)) {
@@ -184,6 +184,35 @@ class ArrayHelpers {
 		}
 
 		return array_values($results);
+	}
+
+	/**
+	 * fetch array return map
+	 * @author gjy
+	 *
+	 * @param  array $array
+	 * @param  string $keyValue # ex: item_id.title
+	 * @return array
+	 */
+	public static function fetch_map( $array, $keyValue )
+	{
+		$check = reset( $array );
+		$kv = explode( '.', $keyValue );
+		if ( count( $kv ) !== 2
+			|| ! isset( $kv[0], $check )
+			|| ! isset( $kv[1], $check ) ) return array();
+
+		$indexKey = $kv[0];
+		$valueKey = $kv[1];
+
+		$results = array();
+		foreach ( $array as $v )
+		{
+			if ( isset( $results[$v[$indexKey]] ) ) continue;
+			$results[$v[$indexKey]] = $v[$valueKey];
+		}
+
+		return $results;
 	}
 
 }
