@@ -116,31 +116,26 @@ class StringHelpers {
 		case 'numeric':
 			return str_pad(mt_rand(0, str_repeat(9, $len)), $len, '0', STR_PAD_LEFT);
 		case 'alnum':
+			$pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+			break;
 		case 'nozero':
+			$pool = '123456789';
+			break;
 		case 'alpha':
+			$pool = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+			break;
 		case 'distinct':
-			switch ($type) {
-			case 'alpha':
-				$pool = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-				break;
-			case 'alnum':
-				$pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-				break;
-			case 'nozero':
-				$pool = '123456789';
-				break;
-			case 'distinct':
-				$pool = 'abcdefghijkmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ';
-				break;
-			case 'distinct_num':
-				$pool = '3456789abcdefghijkmnpqrstuvwxyABCDEFGHIJKLMNPQRSTUVWXY';
-				break;
-			}
-			return substr(str_shuffle(str_repeat($pool, ceil($len / strlen($pool)))), 0, $len);
+			$pool = 'abcdefghijkmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ';
+			break;
+		case 'distinct_num':
+			$pool = '3456789abcdefghijkmnpqrstuvwxyABCDEFGHIJKLMNPQRSTUVWXY';
+			break;
 		case 'md5':
 			return md5(uniqid(mt_rand()));
 		case 'sha1':
 			return sha1(uniqid(mt_rand(), TRUE));
 		}
+
+		return substr(str_shuffle(str_repeat($pool, ceil($len / strlen($pool)))), 0, $len);
 	}
 }
