@@ -2,7 +2,7 @@
 
 namespace Hayate;
 
-class ExcelHelpers {
+class CsvHelpers {
 
 	/** end of line */
 	CONST EOL = "\r\n";
@@ -25,7 +25,7 @@ class ExcelHelpers {
 	 * @param  array $data
 	 * @return boolean
 	 */
-	public static function csv_storage($filePathName, array $data, $overwrite = FALSE) {
+	public static function storage($filePathName, array $data, $overwrite = FALSE) {
 
 		if (is_file($filePathName) && !$overwrite) {
 			// TODO throw exception
@@ -88,7 +88,7 @@ class ExcelHelpers {
 	 * @param  array $data
 	 * @return void
 	 */
-	public static function csv_download($filename, array $data) {
+	public static function download($filename, array $data) {
 		// 类似的逻辑, 但结果变为输出到浏览器
 	}
 }
