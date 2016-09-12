@@ -36,6 +36,7 @@ class ExcelHelpers {
 			return FALSE;
 		}
 
+		touch($filePathName);
 		$filePathName = realpath($filePathName);
 
 		$fp = fopen($filePathName, 'w');
@@ -62,7 +63,8 @@ class ExcelHelpers {
 						$contents .= self::ENCLOSURE . $cell . '	' . self::ENCLOSURE . self::DELIMITER;
 					}
 					else {
-						$contents .= self::ENCLOSURE . $cell . self::ENCLOSURE . self::DELIMITER;
+						// 转义内容中的引号
+						$contents .= self::ENCLOSURE . str_replace('"', '""', $cell) . self::ENCLOSURE . self::DELIMITER;
 					}
 				}
 
@@ -74,7 +76,7 @@ class ExcelHelpers {
 		}
 
 		fclose($fp);
-		return TRUE;
+		return $filePathName;
 	}
 
 
