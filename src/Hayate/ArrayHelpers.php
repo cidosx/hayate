@@ -22,11 +22,7 @@ class ArrayHelpers
             $arrData = array_filter($arrData);
         }
 
-        /**
-         * 去null后两次翻转
-         * merge用来修复数组index
-         */
-        return array_merge(array_flip(array_flip($arrData)));
+        return array_keys(array_flip($arrData));
     }
 
     /**
