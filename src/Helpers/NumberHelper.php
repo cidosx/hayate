@@ -6,7 +6,7 @@ namespace Hayate\Helpers;
  * 数字处理函数(并无卵用)
  * _(:3」∠x)_
  */
-class NumberHelpers
+class NumberHelper
 {
 
     /**

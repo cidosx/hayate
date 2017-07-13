@@ -2,7 +2,7 @@
 
 namespace Hayate\Helpers;
 
-class StringHelpers
+class StringHelper
 {
 
     /**

@@ -2,7 +2,7 @@
 
 namespace Hayate\Helpers;
 
-class DateHelpers
+class DateHelper
 {
     /**
      * 传入时间, 计算月份差值 [2016-03-03 | 2016-3-3 | 2016-3-03][xx:xx:xx]
