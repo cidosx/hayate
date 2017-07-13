@@ -5,7 +5,7 @@ namespace Hayate;
 /**
  * 自定义数组辅助函数
  */
-class ArrayHelpers
+class ArrayHelper
 {
 
     /**
