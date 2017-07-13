@@ -1,6 +1,6 @@
 <?php
 
-namespace Hayate;
+namespace Hayate\Helpers;
 
 class DateHelpers
 {

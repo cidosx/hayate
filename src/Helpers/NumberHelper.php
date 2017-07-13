@@ -1,6 +1,6 @@
 <?php
 
-namespace Hayate;
+namespace Hayate\Helpers;
 
 /**
  * 数字处理函数(并无卵用)
