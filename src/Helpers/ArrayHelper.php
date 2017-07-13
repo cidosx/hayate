@@ -26,6 +26,26 @@ class ArrayHelper
     }
 
     /**
+     * translate object to array
+     * @author gjy
+     *
+     * @param  mixed $var
+     * @return array
+     */
+    public static function object2array($var)
+    {
+        if (is_object($var)) {
+            $var = get_object_vars($var);
+        }
+
+        if (is_array($var)) {
+            return array_map(__METHOD__, $var);
+        } else {
+            return $var;
+        }
+    }
+
+    /**
      * 数据排序, 根据参数执行升序或降序
      * 只适用于自然序列的数组
      *
