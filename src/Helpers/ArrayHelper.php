@@ -1,6 +1,6 @@
 <?php
 
-namespace Hayate;
+namespace Hayate\Helpers;
 
 /**
  * 自定义数组辅助函数
