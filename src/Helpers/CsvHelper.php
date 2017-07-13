@@ -8,8 +8,8 @@ use RuntimeException;
  * 处理csv的辅助函数
  * ！此文件需要硬缩进 hard tab
  */
-class CsvHelpers {
-
+class CsvHelper
+{
 	/** end of line */
 	CONST EOL = "\r\n";
 
