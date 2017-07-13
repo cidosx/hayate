@@ -1,6 +1,6 @@
 {
-    "name": "ginnerpeace/Hayate",
-    "description": "* Critchance +25% \n\r * Speed bonus +18% \n\r * Hit rating 100%",
+    "name": "ginnerpeace/hayate",
+    "description": "* Critchance +25% \n\r * Speed bonus +18% \n\r * Hit rating 100% \n\r \_(:з」∠)_ swag...",
     "license": "MIT",
     "authors": [
         {
@@ -13,7 +13,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Hayate\\": "src/Hayate"
+            "Hayate\\": "src"
         }
     }
 }
