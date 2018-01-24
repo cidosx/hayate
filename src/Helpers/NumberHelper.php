@@ -2,12 +2,80 @@
 
 namespace Hayate\Helpers;
 
+use InvalidArgumentException;
+
 /**
  * 数字处理函数(并无卵用)
  * _(:3」∠x)_
  */
 class NumberHelper
 {
+    /**
+     * 除法等商拆分
+     *
+     * @author  gjy
+     *
+     * @param   numeric  $dividend
+     * @param   numeric  $divisor
+     * @param   integer  $n
+     * @param   integer  $limit
+     * @return  array
+     */
+    public static function division_split($dividend, $divisor, int $n, int $limit = 233)
+    {
+        if (1 > $n || 1 > $dividend || 1 > $divisor) {
+            throw new InvalidArgumentException('搞事情啊?', 1);
+        }
+
+        if ($limit && $n > $limit) {
+            throw new InvalidArgumentException('拆分太多了本函数不是很想算.', 1);
+        }
+
+        if (1 === $n) {
+            return [
+                'success' => true,
+                'result' => [
+                    [
+                        'dividend' => $dividend,
+                        'divisor' => $divisor,
+                    ],
+                ],
+            ];
+        }
+
+        // 算出商
+        $quotient = $dividend / $divisor;
+
+        $data = [
+            'success' => $divisor >= $n,
+            'result' => [],
+        ];
+
+        while ($dividend > 0) {
+            for($i = 0; $i < $n && $dividend > 0; ++$i) {
+                if (! isset($data['result'][$i])) {
+                    $data['result'][$i] = [
+                        'dividend' => 0,
+                        'divisor' => 0,
+                    ];
+                }
+
+                // 如果最后一组不够分了, 这组除法的商就不等于其他组
+                if ($dividend < $quotient) {
+                    $data['result'][$i]['dividend'] += ($quotient - $dividend);
+                    $data['success'] = false;
+                }
+                else {
+                    $data['result'][$i]['dividend'] += $quotient;
+                }
+
+                $data['result'][$i]['divisor'] += 1;
+                $dividend -= $quotient;
+            }
+        }
+
+        return $data;
+    }
 
     /**
      * 长整型相减
